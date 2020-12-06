@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import {v4 as uuid } from 'uuid'
 import "./App.css"
 
 
@@ -13,9 +14,11 @@ function ShoppingList(props) {
 
 
   function handleSubmit(event) {
-    event.preventDefault()
-
-    setList((previousListState) => previousListState.concat(itemName))
+    event.preventDefault();
+    setList((previousListState) => 
+    
+    previousListState.concat({key: uuid(), name: itemName })
+    )
     setItemName("")
   }
 
@@ -34,12 +37,13 @@ function ShoppingList(props) {
         </label>
         <button onClick={handleSubmit}>Add Item</button>
       </form>
-        <button onClick={() => setList(removeLastItem)}>Delete Item</button>
+        {/* <button onClick={() => setList(removeLastItem)}>Delete Item</button> */}
       <ul className="ShoppingList-list">
         {list.map((listItem) => {
           return (
             <li key={listItem} className="ShoppingList-item">
-              {listItem}
+              {listItem.name} {" "} 
+              <button onClick={() => setList(removeLastItem)}>X</button>
             </li>
           )
         })}
