@@ -29,7 +29,7 @@ function ShoppingList(props) {
         <input
           type="text"
           value={itemName}
-          onChange={(e) => setItemName1(e.target.value.toUpperCase())}
+          onChange={(e) => setItemName(e.target.value.toUpperCase())}
         />
         </label>
         <button onClick={handleSubmit}>Add Item</button>
