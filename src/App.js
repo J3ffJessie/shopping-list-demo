@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 import "./App.css";
 
-const removeLastItem = (list) =>
-  list.filter((_, index) => index !== list.length - 1);
-
+// for deleting the last item added to the list if wanted
+// const removeLastItem = (list) =>
+//   list.filter((_, index) => index !== list.length - 1);
 // const deleteItem = (list, itemKey) => list.filter((item) => item.key !== itemKey)
+
 //currying
 const deleteItem = (itemKey) => (list) =>
   list.filter((item) => item.key !== itemKey);
@@ -28,27 +29,30 @@ function ShoppingList(props) {
   
 
   return (
-    <div>
+    <div className= "lists">
       <h1>{props.listName}</h1>
       <form>
         <label>
-          New Item Name
+          Item Name
           <input
             type="text"
             value={itemName}
             onChange={(e) => setItemName(e.target.value.toUpperCase())}
           />
         </label>
-        <button onClick={handleSubmit}>Add Item</button>
+        <button className="inputButton" onClick={handleSubmit}>Add Item</button>
       </form>
-      <button onClick={() => setList(removeLastItem)}>Delete Last Item</button>
+
+      {/* delete the last item from the list */}
+      {/* <button className="inputButton" onClick={() => setList(removeLastItem)}>Delete Last Item</button> */}
+      
       <ul className="ShoppingList-list">
         {list.map((listItem) => {
           return (
             <li key={listItem.key} className="ShoppingList-item">
               {listItem.name}{" "}
               {/* <button onClick={() => setList(removeLastItem)}>X</button> */}
-              <button onClick={() => setList(deleteItem(listItem.key))}>X</button>
+              <button className="deleteItem" onClick={() => setList(deleteItem(listItem.key))}>🗑️</button>
             </li>
           );
         })}
@@ -62,9 +66,7 @@ function App() {
 
   return (
     <div className="main-div">
-      <ShoppingList listName="First List for HEB" />
-
-      <ShoppingList listName="Second List for Whole Foods" />
+      <ShoppingList listName="Shopping List" />
     </div>
   );
 }
